@@ -1,0 +1,31 @@
+---
+version: '3.7'
+services:
+  torproxy:
+    image: torproxy:latest
+    #build:
+    #  context: ./
+    #  dockerfile: ../Dockerfile
+    container_name: torproxy
+    hostname: torproxy
+    init: true
+    restart: on-failure
+    network_mode: "host"
+    ports:
+      - "8123:8123"
+      - "8118:8118"
+      - "9050:9050"
+      - "9051:9051"
+      - "9053:9053"
+    expose:
+      - "8123"
+      - '8118'
+      - '9050'
+      - "9051"
+      - "9053"
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "64m"
+        max-file: "1"
+

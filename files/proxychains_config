@@ -1,0 +1,11 @@
+#dynamic_chain
+strict_chain
+#random_chain
+#chain_len = 2
+quiet_mode
+proxy_dns 
+tcp_read_time_out 15000
+tcp_connect_time_out 8000
+[ProxyList]
+socks4 	127.0.0.1 9050	torproxy    4bKyHADqCrTB8XG32tzNjmxB
+socks5	127.0.0.1 9050	torproxy    4bKyHADqCrTB8XG32tzNjmxB
