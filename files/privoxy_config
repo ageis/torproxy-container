@@ -18,12 +18,13 @@ enforce-blocks 0
 permit-access 127.0.0.1 10.0.0.0/8 192.168.0.0/8 172.0.0.0/8 169.254.0.0/16 127.0.0.1/32
 buffer-limit 8192
 enable-proxy-authentication-forwarding 0
-forward-socks4 / 127.0.0.1:9050 .
+forward-socks4 / 127.0.0.1:9050  .
 forward-socks4a / 127.0.0.1:9050 .
-forward-socks5 / 127.0.0.1:9050 .
+forward-socks5 / 127.0.0.1:9050  .
 forward-socks5t / 127.0.0.1:9050 .
 forward           127.0.0.1/     .
 forward           localhost/     .
+forward           ::1            .
 forwarded-connect-retries  0
 accept-intercepted-requests 0
 allow-cgi-request-crunching 0

@@ -5,7 +5,7 @@ AvoidDiskWrites 0
 ClientOnly 1
 ClientUseIPv6 0
 ConnectionPadding 1
-ControlPort 127.0.0.1:9051
+ControlPort 0.0.0.0:9051
 ControlPortFileGroupReadable 1
 ControlSocket /run/tor/control GroupWritable RelaxDirModeCheck
 ControlSocketsGroupWritable 1
@@ -37,17 +37,17 @@ RunAsDaemon 1
 SafeLogging 0
 SafeSocks 1
 Sandbox 1
-SOCKSPort 127.0.0.1:9050 .PreferSOCKSNoAuth IsolateSOCKSAuth KeepAliveIsolateSOCKSAuth IPv6Traffic
-SOCKSPort unix:/run/tor/socks WorldWritable
+SOCKSPort 0.0.0.0:9050 PreferSOCKSNoAuth IsolateSOCKSAuth KeepAliveIsolateSOCKSAuth IPv6Traffic
++SOCKSPort unix:/run/tor/socks WorldWritable
 SOCKSPolicy accept 127.0.0.1
 SOCKSPolicy accept 192.168.1.0/24
-SOCKSPolicy accept 10.0.0.0/8
 SOCKSPolicy accept 192.168.0.0/8
+SOCKSPolicy accept 10.0.0.0/8
 SOCKSPolicy accept 172.0.0.0/8
 SOCKSPolicy accept 169.254.0.0/16
 SOCKSPolicy reject *
-SOCKS5ProxyPassword 4bKyHADqCrTB8XG32tzNjmxB
 SOCKS5ProxyUsername torproxy
+SOCKS5ProxyPassword 4bKyHADqCrTB8XG32tzNjmxB
 SocksTimeout 60
 StrictNodes 1
 TestSocks 1
