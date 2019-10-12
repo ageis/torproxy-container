@@ -1,40 +1,42 @@
-user-manual /usr/share/doc/privoxy/user-manual
-admin-address root@localhost
-confdir /etc/privoxy
-logdir /var/log/privoxy
-actionsfile match-all.action
+accept-intercepted-requests 1
 actionsfile default.action
-filterfile default.filter
-logfile logfile
-debug 13313
-single-threaded 0
-hostname torproxy
-listen-address 0.0.0.0:8118
-toggle  0
-enable-remote-toggle  0
-enable-remote-http-toggle  0
-enable-edit-actions 0
-enforce-blocks 0
-permit-access 127.0.0.1 10.0.0.0/8 192.168.0.0/8 172.0.0.0/8 169.254.0.0/16 127.0.0.1/32
-buffer-limit 8192
-enable-proxy-authentication-forwarding 0
-forward-socks4 / 127.0.0.1:9050  .
-forward-socks4a / 127.0.0.1:9050 .
-forward-socks5 / 127.0.0.1:9050  .
-forward-socks5t / 127.0.0.1:9050 .
-forward           127.0.0.1/     .
-forward           localhost/     .
-forward           ::1            .
-forwarded-connect-retries  0
-accept-intercepted-requests 0
+actionsfile match-all.action
+actionsfile user.action
+admin-address root@torproxy
 allow-cgi-request-crunching 0
-split-large-forms 0
-keep-alive-timeout 10
-tolerate-pipelining 1
-default-server-timeout 10
+buffer-limit 8192
+confdir /etc/privoxy
 connection-sharing 1
-socket-timeout 120
-max-client-connections 64
-log-messages   1
+debug 1025
+default-server-timeout 30
+enable-edit-actions 0
+enable-proxy-authentication-forwarding 0
+enable-remote-http-toggle 0
+enable-remote-toggle 0
+enforce-blocks 0
+filterfile default.filter
+filterfile user.filter
+forwarded-connect-retries 1
+forward-socks4 / 127.0.0.1:9050 .
+forward-socks4a / 127.0.0.1:9050 .
+forward-socks5 / 127.0.0.1:9050 .
+forward-socks5t / 127.0.0.1:9050 .
+hostname torproxy
+keep-alive-timeout 5
+listen-address 0.0.0.0:8118
+logdir /var/log/privoxy
+logfile logfile
 log-max-lines 65535
+log-messages 1
+max-client-connections 256
+permit-access 127.0.0.0/8
+proxy-info-url https://www.privoxy.org
+receive-buffer-size 32768
+single-threaded 0
+socket-timeout 120
+split-large-forms 0
+toggle 1
+tolerate-pipelining 1
+trust-info-url https://www.privoxy.org
 trust-x-forwarded-for 1
+user-manual https://www.privoxy.org/user-manual/
