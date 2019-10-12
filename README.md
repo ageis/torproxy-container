@@ -4,15 +4,20 @@ A simple container built with docker-compose which provides a Tor SOCKS proxy, a
 
 It runs the latest versions of Alpine Linux, Tor, and Privoxy.
 
+To build and run:
+
+    ./build.sh
+
 To build:
 
-    docker build --no-cache --compress --add-host torproxy:127.0.0.1 --label 'tor' --network host -t torproxy .
+    export TOR_CONTROL_PASSWD="$(openssl rand -hex 16)"
+    docker-compose -f files/docker-compose.yml --project-directory files -p torproxy --verbose build --no-cache --compress --build-arg TOR_CONTROL_PASSWD=${TOR_CONTROL_PASSWD}
 
 To run:
 
-    docker-compose up -f ./files/docker-compose.yml -d --force-recreate torproxy
+    docker-compose -f files/docker-compose.yml --project-directory files -p torproxy --verbose up -d torproxy
 
-Services are available on the standard ports and utilize the host network. SOCKS on 9050, HTTP on 8118 and DNS on 9053.
+Services are available on the standard ports and utilize the host network. SOCKS on 9050, Tor control on 9051, HTTP on 8118 and DNS on 9053.
 
 # Recommendations for running Docker
 
@@ -48,7 +53,7 @@ Let's say I'm now running the container on Debian, and I want to force all apt t
     Acquire::http::proxy "http://127.0.0.1:8118/";
     Acquire::https::proxy "http://127.0.0.1:8118/";
 
-You shouldn't need a user/password for SOCKS authentication, but it's in [torsocks.conf](files/torsocks.conf) if you need it.
+You shouldn't ever need a user/password for SOCKS authentication, but it's in [torsocks.conf](files/torsocks.conf) if you need it.
 
 Likewise, you can now set the environment variables for usage by applications:
 
@@ -56,7 +61,7 @@ Likewise, you can now set the environment variables for usage by applications:
     export http_proxy="http://127.0.0.1:8118/"
     export https_proxy="http://127.0.0.1:8118/"
     export socks_proxy="http://127.0.0.1:9050/"
-    export no_proxy="127.0.0.1,localhost"
+    export no_proxy="127.0.0.0/8,localhost,::1"
 
 There are other places you can set the proxy, such as in Firefox's network settings, google-chrome with `--proxy-server`, Network Manager, or in /etc/dconf/db/local.d:
 
@@ -68,7 +73,6 @@ Why not make it part of your profile or environment? If you use Tor Browser Bund
 
 
     export TOR_CONTROL_HOST=127.0.0.1
-    export TOR_CONTROL_PASSWD='"4bKyHADqCrTB8XG32tzNjmxB"'
     export TOR_CONTROL_PORT=9051
     export TOR_SKIP_CONTROLPORTTEST=0
     export TOR_SKIP_LAUNCH=1
@@ -79,7 +83,6 @@ Other use cases:
 
     export SOCKS5_SERVER="127.0.0.1:9050"
     export SOCKS5_USER="torproxy"
-    export SOCKS5_PASSWORD="4bKyHADqCrTB8XG32tzNjmxB"
     export SOCKS_VERSION=5
 
 In one's SSH client config `~/.ssh/config`, requires connect-proxy:

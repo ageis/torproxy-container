@@ -13,7 +13,7 @@ CookieAuthFileGroupReadable 1
 CookieAuthFile /run/tor/control.authcookie
 DataDirectory /var/lib/tor
 DirCache 1
-DNSPort 0
+DNSPort 0.0.0.0:9053
 DownloadExtraInfo 1
 ExitNodes {us}
 FetchDirInfoEarly 1

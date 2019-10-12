@@ -18,7 +18,6 @@ services:
     restart: on-failure
     network_mode: "host"
     ports:
-      - "8123:8123"
       - "8118:8118"
       - "9050:9050"
       - "9051:9051"
@@ -26,7 +25,8 @@ services:
     expose:
       - '8118'
       - '9050'
-      - "9051"
+      - '9051'
+      - '9053'
     volumes:
       - /var/lib/tor:/var/lib/tor
       - /var/log/tor:/var/log/tor

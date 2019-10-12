@@ -26,14 +26,14 @@ RUN pip2 install -U supervisor
 RUN /usr/bin/install -m 02755 -o root -g root -d /run/tor -d /var/run/tor -d /var/log/tor -d /var/lib/tor
 RUN /usr/bin/install -m 02775 -o privoxy -g adm -d /run/privoxy -d /var/run/privoxy -d /var/log/privoxy
 
-RUN /usr/bin/openssl rand -hex 16
-
 ADD privoxy_config /etc/privoxy/config
 ADD torrc /etc/tor/torrc
 ADD torsocks.conf /etc/tor/torsocks.conf
 ADD supervisord.conf /etc/supervisor/supervisord.conf
+
 RUN /bin/sed -i -r "s/TOR_CONTROL_PASSWD/${TOR_CONTROL_PASSWD}/g" /etc/tor/torrc /etc/tor/torsocks.conf
 RUN export HASHED_CONTROL_PASSWD=$(/usr/bin/tor --quiet --hash-password "${TOR_CONTROL_PASSWD}") && echo "HashedControlPassword ${HASHED_CONTROL_PASSWD}" >> /etc/tor/torrc
-EXPOSE 8118 9050 9051
+
+EXPOSE 8118 9050 9051 9053
 
 CMD ["/usr/bin/supervisord", "-c", "/etc/supervisor/supervisord.conf"]
