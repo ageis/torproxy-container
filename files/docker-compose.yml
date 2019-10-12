@@ -3,9 +3,15 @@ version: '3.7'
 services:
   torproxy:
     image: torproxy:latest
-    #build:
-    #  context: ./
-    #  dockerfile: ../Dockerfile
+    build:
+      context: ./
+      dockerfile: ./Dockerfile
+      args:
+        TOR_CONTROL_PASSWD: "${TOR_CONTROL_PASSWD}"
+    env_file: ../.env
+    environment:
+      - TOR_CONTROL_PASSWD=${TOR_CONTROL_PASSWD}
+    command: /usr/bin/supervisord -c /etc/supervisor/supervisord.conf
     container_name: torproxy
     hostname: torproxy
     init: true
@@ -18,11 +24,13 @@ services:
       - "9051:9051"
       - "9053:9053"
     expose:
-      - "8123"
       - '8118'
       - '9050'
       - "9051"
-      - "9053"
+    volumes:
+      - /var/lib/tor:/var/lib/tor
+      - /var/log/tor:/var/log/tor
+      - /run/tor:/run/tor
     logging:
       driver: "json-file"
       options:

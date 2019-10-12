@@ -1,4 +1,3 @@
-
 AutomapHostsOnResolve 1
 AutomapHostsSuffixes .onion
 AvoidDiskWrites 0
@@ -7,23 +6,22 @@ ClientUseIPv6 0
 ConnectionPadding 1
 ControlPort 0.0.0.0:9051
 ControlPortFileGroupReadable 1
-ControlSocket /run/tor/control GroupWritable RelaxDirModeCheck
+ControlSocket /run/tor/control GroupWritable WorldWritable RelaxDirModeCheck
 ControlSocketsGroupWritable 1
 CookieAuthentication 1
 CookieAuthFileGroupReadable 1
 CookieAuthFile /run/tor/control.authcookie
 DataDirectory /var/lib/tor
 DirCache 1
-DNSPort 127.0.0.1:9053
+DNSPort 0
 DownloadExtraInfo 1
 ExitNodes {us}
 FetchDirInfoEarly 1
 FetchDirInfoExtraEarly 1
 FetchUselessDescriptors 1
 HardwareAccel 1
-HashedControlPassword 16:7777FC39369E5BC660265EDCA5D581C30F5FCA8E80C651CF126890E66A
 HeartbeatPeriod 30minutes
-HTTPTunnelPort 127.0.0.1:8119
+HTTPTunnelPort 0
 Log info stdout
 Log notice syslog
 Log warn stderr
@@ -37,20 +35,19 @@ RunAsDaemon 1
 SafeLogging 0
 SafeSocks 1
 Sandbox 1
-SOCKSPort 0.0.0.0:9050 PreferSOCKSNoAuth IsolateSOCKSAuth KeepAliveIsolateSOCKSAuth IPv6Traffic
-+SOCKSPort unix:/run/tor/socks WorldWritable
-SOCKSPolicy accept 127.0.0.1
-SOCKSPolicy accept 192.168.1.0/24
+SOCKSPort 0.0.0.0:9050 PreferSOCKSNoAuth IsolateSOCKSAuth KeepAliveIsolateSOCKSAuth
++SOCKSPort unix:/run/tor/socks GroupWritable WorldWritable RelaxDirModeCheck
+SOCKSPolicy accept 127.0.0.0/8
 SOCKSPolicy accept 192.168.0.0/8
 SOCKSPolicy accept 10.0.0.0/8
 SOCKSPolicy accept 172.0.0.0/8
 SOCKSPolicy accept 169.254.0.0/16
 SOCKSPolicy reject *
 SOCKS5ProxyUsername torproxy
-SOCKS5ProxyPassword 4bKyHADqCrTB8XG32tzNjmxB
+SOCKS5ProxyPassword TOR_CONTROL_PASSWD
 SocksTimeout 60
 StrictNodes 1
 TestSocks 1
-TransPort 127.0.0.1:9040
+TransPort 0
 UnixSocksGroupWritable 1
 VirtualAddrNetworkIPv4 127.42.0.0/10
